@@ -27,25 +27,33 @@ Step 2: Installing Jenkins on EC2
 
 Install Jenkins using the following commands:
 
+```
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt update
 sudo apt install jenkins
 
+```
+
 Start and enable Jenkins:
 
+```
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
 
+```
 
 3. Configuring Docker as a Slave on EC2
 
 Step 1: Install Docker
 On each EC2 instance (for slave nodes), install Docker:
 
+```
 sudo apt update
 sudo apt install docker.io
 sudo usermod -aG docker $(whoami)
+
+```
 
 Step 2: Create a Docker Image for the Slave Node
 You will need to create a Docker image that contains the Jenkins slave agent. Use the following Dockerfile as an example:
@@ -54,15 +62,19 @@ files are uploaded in repo.
 
 Build the Docker image:
 
+```
 docker build -t jenkins-slave .
+
+```
 
 Step 3: Launch Docker Containers for Slave Nodes
 Launch three Docker containers as Jenkins slaves on the EC2 instances:
 
+```
 docker run -d --name jenkins-slave1 jenkins-slave
 docker run -d --name jenkins-slave2 jenkins-slave
 docker run -d --name jenkins-slave3 jenkins-slave
-
+```
 
 4. Configuring Jenkins Master to Connect with Slave Nodes
 
@@ -82,8 +94,9 @@ Create a simple freestyle project in Jenkins to run on a specific node. For inst
 Go to New Item, create a job, and specify a label that corresponds to one of the slave nodes.
 The job could be as simple as a shell script to check the Java version:
 
+```
 java -version
-
+```
 
 Step 2: Monitoring Job Execution
 Once the job is triggered, Jenkins will automatically distribute the workload across the configured slave nodes. You can view which node the job is running on by checking the Console Output of the job.
