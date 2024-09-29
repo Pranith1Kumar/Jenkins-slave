@@ -18,8 +18,8 @@ Instance Type: Select an EC2 instance (e.g., t2.micro) with appropriate resource
 Operating System: Use Ubuntu 20.04 as the base OS for Jenkins.
 Security Group: Configure inbound rules to allow traffic on ports 8080 (Jenkins default) and 22 (SSH access).
 
-'''sudo apt update
-sudo apt install openjdk-11-jre'''
+''''sudo apt update
+sudo apt install openjdk-11-jre''''
 
 Step 2: Installing Jenkins on EC2
 
